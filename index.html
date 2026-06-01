@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Raju Web Developer and Web Designer from Bihar, India. Professional website design and development services.">
+<meta name="keywords" content="Raju Web Developer, Web Designer, Bihar Website Developer, Web Design">
+<title>Raju Web Developer and Web Designer</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f4f4;
+}
+
+/* TOP BAR */
+.top-bar{
+background:#ff4d00;
+color:white;
+padding:15px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.social-icons a{
+color:white;
+margin-left:15px;
+font-size:22px;
+}
+
+/* HEADER */
+header{
+background:white;
+padding:25px;
+text-align:center;
+}
+
+header h1{
+font-size:50px;
+font-weight:bold;
+}
+
+.nav-btn{
+display:inline-block;
+margin:10px;
+padding:12px 25px;
+background:#002b80;
+color:white;
+text-decoration:none;
+border-radius:8px;
+font-size:18px;
+font-weight:bold;
+}
+
+.nav-btn:hover{
+background:#ff4d00;
+}
+
+/* HERO */
+.hero{
+height:400px;
+background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3') center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:55px;
+font-weight:bold;
+color:white;
+}
+
+/* MAIN */
+.container{
+display:flex;
+gap:30px;
+padding:40px;
+flex-wrap:wrap;
+}
+
+.about,.login-box,.register-box{
+flex:1;
+min-width:320px;
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 8px 25px rgba(0,0,0,0.15);
+}
+
+.about h2{
+color:#ff6600;
+text-align:center;
+margin-bottom:20px;
+}
+
+.about p{
+font-size:18px;
+line-height:1.8;
+}
+
+input,select{
+width:100%;
+padding:15px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#002b80;
+color:white;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+}
+
+button:hover{
+background:#ff4d00;
+}
+
+.link-btn{
+color:orange;
+cursor:pointer;
+font-weight:bold;
+}
+
+.hidden{
+display:none;
+}
+
+/* FOOTER */
+.footer{
+background:#0b0b0b;
+color:white;
+padding:60px 40px 20px;
+margin-top:50px;
+}
+
+.footer-container{
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:30px;
+}
+
+.footer-box{
+flex:1;
+min-width:250px;
+}
+
+.footer-box h3{
+margin-bottom:20px;
+}
+
+.footer-box p,.footer-box a{
+display:block;
+color:#aaa;
+margin:10px 0;
+text-decoration:none;
+}
+
+.footer-social a{
+display:inline-block;
+width:45px;
+height:45px;
+line-height:45px;
+text-align:center;
+border:1px solid #f7b500;
+border-radius:10px;
+margin-right:10px;
+color:#f7b500;
+}
+
+.footer-bottom{
+border-top:1px solid #333;
+margin-top:30px;
+padding-top:20px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+}
+
+@media(max-width:768px){
+header h1{font-size:32px;}
+.hero{font-size:30px;height:250px;}
+}
+  
+  /* ===== LOGIN & REGISTER BOX NEW DESIGN ===== */
+
+.hacker-box{
+    width:100%;
+    max-width:420px;
+    background:#ffffff;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    box-sizing:border-box;
+}
+
+/* Heading */
+.hacker-box h2{
+    text-align:center;
+    margin-bottom:20px;
+    color:#002b80;
+    letter-spacing:2px;
+    font-size:26px;
+}
+
+/* Inputs & Select ONLY inside hacker box */
+.hacker-box input,
+.hacker-box select{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:10px;
+    outline:none;
+    font-size:15px;
+    transition:0.3s;
+    background:#f9f9f9;
+}
+
+.hacker-box input:focus,
+.hacker-box select:focus{
+    border-color:#ff4d00;
+    box-shadow:0 0 8px rgba(255,77,0,0.3);
+    background:white;
+}
+
+/* Button ONLY inside hacker box */
+.hacker-box button{
+    width:100%;
+    padding:14px;
+    background:#002b80;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.hacker-box button:hover{
+    background:#ff4d00;
+    transform:scale(1.02);
+}
+
+/* Links */
+.hacker-box p{
+    text-align:center;
+    margin-top:15px;
+    font-size:14px;
+}
+
+.hacker-box a{
+    color:#ff4d00;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.hacker-box a:hover{
+    text-decoration:underline;
+}
+
+/* Hide/Show fix */
+.hidden{
+    display:none;
+}
+
+/* Mobile Fix */
+@media(max-width:768px){
+    .hacker-box{
+        margin-top:20px;
+    }
+}
+       .logo{
+width:80px;
+height:80px;
+border-radius:50%;
+margin-bottom:10px;
+}
+    
+   
+    
+</style>  
+</head>
+<body>
+
+<div class="top-bar">
+    <img src="X.jpg" alt="Website Logo" class="logo">
+<div><i class="fa-solid fa-phone"></i> +91 9939171583 | Admission Open</div>
+<div class="social-icons">
+<a href="https://whatsapp.com/channel/0029VbBgQJMKgsNuvHP1EV1v"><i class="fab fa-whatsapp"></i></a>
+<a href="https://www.instagram.com/raju_kumar_nke?igsh=ajkxaWRodTBlenhx"><i class="fab fa-instagram"></i></a>
+<a href="https://www.facebook.com/share/1H5t2xB8r5/"><i class="fab fa-facebook-f"></i></a>
+</div>
+</div>
+   
+
+<header>
+<h1>RAJU COMPUTER EDUCATION</h1>
+
+<a href="home.html" class="nav-btn">Home</a>
+<a href="about.html" class="nav-btn">About</a>
+<a href="pdf.html" class="nav-btn">PDF</a>
+<a href="contect.html" class="nav-btn">Contact</a>
+</header>
+
+<div class="hero">WELCOME TO ALL USER</div>
+
+<div class="container">
+
+   
+
+    
+<div class="about">
+<h2>हमारे बारे में</h2>
+<p>
+मैं एक  विद्यार्थी हूँ तथा आधुनिक तकनीकी शिक्षा के क्षेत्र में निरंतर अध्ययन एवं अभ्यास कर रहा हूँ।
+यह वेबसाइट मेरे ज्ञान, रचनात्मकता तथा तकनीकी कौशल को प्रदर्शित करने के उद्देश्य से बनाई गई है।
+</p>
+<br>
+<p>
+मेरा उद्देश्य नई तकनीकों को सीखकर भविष्य में एक सफल तकनीकी विशेषज्ञ बनना है।
+</p>
+<br>
+<p>
+“सीखना ही सफलता की प्रथम सीढ़ी है।”
+</p>
+</div>
+
+<div class="hacker-box">
+
+<div id="loginPage">
+<h2>LOGIN</h2>
+<input type="email" id="loginEmail" placeholder="Email">
+<input type="password" id="loginPassword" placeholder="Password">
+<button onclick="login()">LOGIN</button>
+<p>No account? <a onclick="showRegister()">Register</a></p>
+</div>
+
+<div id="registerPage" class="hidden">
+<h2>REGISTER</h2><ol>
+<input type="text" id="username" placeholder="User Name">
+<input type="tel" id="mobile" placeholder="Mobile Number">
+<input type="email" id="email" placeholder="Email">
+    <ul><li>
+    <label style="color:red;">Gender</label></li>
+<select name="gender" required>
+  <option value="" disabled selected>Select Gender</option>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Other">Other</option>
+</select>
+    
+    <input id="dob" type="text" placeholder="Date of Birth"
+       onfocus="(this.type='date')"
+       onblur="if(!this.value)this.type='text'">
+    
+    <li><label style="color:red;">State   
+<select id="state" >
+</li> </label>
+        
+        <option value="" disabled selected>Select State</option>
+    <option>Andhra Pradesh</option>
+<option>Arunachal Pradesh</option>
+<option>Assam</option>
+<option>Bihar</option>
+<option>Chhattisgarh</option>
+<option>Goa</option>
+<option>Gujarat</option>
+<option>Haryana</option>
+<option>Himachal Pradesh</option>
+<option>Jharkhand</option>
+<option>Karnataka</option>
+<option>Kerala</option>
+<option>Madhya Pradesh</option>
+<option>Maharashtra</option>
+<option>Manipur</option>
+<option>Meghalaya</option>
+<option>Mizoram</option>
+<option>Nagaland</option>
+<option>Odisha</option>
+<option>Punjab</option>
+<option>Rajasthan</option>
+<option>Sikkim</option>
+<option>Tamil Nadu</option>
+<option>Telangana</option>
+<option>Tripura</option>
+<option>Uttar Pradesh</option>
+<option>Uttarakhand</option>
+<option>West Bengal</option>
+    
+    
+</select>
+    
+        <li><label style="color:red;">District</li>  
+            
+        </ul>
+<select id="district" placeholder="District"></lable>
+        
+        <option value="" disabled selected>Select District</option>
+<option>Araria</option>
+<option>Arwal</option>
+<option>Aurangabad</option>
+<option>Banka</option>
+<option>Begusarai</option>
+<option>Bhagalpur</option>
+<option>Bhojpur</option>
+<option>Buxar</option>
+<option>Darbhanga</option>
+<option>East Champaran (Motihari)</option>
+<option>Gaya</option>
+<option>Gopalganj</option>
+<option>Jamui</option>
+<option>Jehanabad</option>
+<option>Kaimur (Bhabua)</option>
+<option>Katihar</option>
+<option>Khagaria</option>
+<option>Kishanganj</option>
+<option>Lakhisarai</option>
+<option>Madhepura</option>
+<option>Madhubani</option>
+<option>Munger</option>
+<option>Muzaffarpur</option>
+<option>Nalanda</option>
+<option>Nawada</option>
+<option>Patna</option>
+<option>Purnia</option>
+<option>Rohtas</option>
+<option>Saharsa</option>
+<option>Samastipur</option>
+<option>Saran</option>
+<option>Sheikhpura</option>
+<option>Sheohar</option>
+<option>Sitamarhi</option>
+<option>Siwan</option>
+<option>Supaul</option>
+<option>Vaishali</option>
+<option>West Champaran (Bettiah)</option>
+<option>None (Other State)</option>
+</select>
+  
+
+<input type="password" id="password" placeholder="Password">
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+    
+<button onclick="register()">REGISTER</button>
+<p><a onclick="showLogin()">Back to Login</a></p>
+</div>
+
+</div>
+
+</div>
+
+<footer class="footer">
+<div class="footer-container">
+
+<div class="footer-box">
+<h2><span style="color:white;">My</span><span style="color:#f7b500;">Website</span></h2>
+<p>My auther social media platform from Bihar, India.</p>
+
+<div class="footer-social">
+<a href="https://www.facebook.com/share/1KrAUf4uwc/"><i class="fab fa-facebook-f"></i></a>
+<a href="#"><i class="fab fa-youtube"></i></a>
+<a href="https://www.instagram.com/raju_kumar_nke?igsh=ajkxaWRodTBlenhx"><i class="fab fa-instagram"></i></a>
+<a href="https://whatsapp.com/channel/0029VbBgQJMKgsNuvHP1EV1v"><i class="fab fa-whatsapp"></i></a>
+</div>
+</div>
+
+<div class="footer-box">
+<h3>QUICK LINKS</h3>
+<a href="home.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="#">Courses</a>
+<a href="#">Contact</a>
+
+</div>
+
+<div class="footer-box">
+<h3>CONTACT</h3>
+<p>Mr. Raju Kumar</p>
+<p>rajukumarcse83@gmail.com</p>
+<p>+91 9939171583</p>
+<p>Bihar, India</p>
+</div>
+
+</div>
+<div class="footer-bottom">
+
+<div class="footer-bottom">
+    <p> 2026 MyWebsite — Raju Kumar
+<span>Made with ❤️Narkatiaganj (West Champaran, Bihar), India</span></p>
+</div>
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyCI6rxI61-io2zEpjkYllhHREFpcLK2ZEg",
+authDomain: "student-profile-f06ce.firebaseapp.com",
+databaseURL: "https://student-profile-f06ce-default-rtdb.asia-southeast1.firebasedatabase.app",
+projectId: "student-profile-f06ce",
+storageBucket: "student-profile-f06ce.appspot.com",
+messagingSenderId: "453142014057",
+appId: "1:453142014057:web:cfc121b858c66f7c70daf8"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const auth = getAuth(app);
+
+/* LOGIN */
+window.login = () => {
+let email=document.getElementById("loginEmail").value;
+let password=document.getElementById("loginPassword").value;
+
+signInWithEmailAndPassword(auth,email,password)
+.then(()=>{
+alert("Login Successful");
+window.location.href="Project4.html";
+})
+.catch(()=>alert("Invalid Login"));
+};
+
+/* REGISTER */
+window.register = () => {
+let username = document.getElementById("username").value; let mobile = document.getElementById("mobile").value; let email = document.getElementById("email").value; let dob = document.getElementById("dob").value; let state = document.getElementById("state").value; let district = document.getElementById("district").value; let password = document.getElementById("password").value; let confirmPassword = document.getElementById("confirmPassword").value;
+if(!username || !mobile || !email || !dob || !state || !district || !password || !confirmPassword){ alert("Please fill all fields"); return; }
+if(password !== confirmPassword){ alert("Password not match"); return; }
+if(password.length < 6){ alert("Password minimum 6 characters ka hona chahiye"); return; }
+createUserWithEmailAndPassword(auth, email, password) .then((userCredential) => {
+set(ref(db, 'users/' + userCredential.user.uid), {
+    username: username,
+    mobile: mobile,
+    email: email,
+    dob: dob,
+    state: state,
+    district: district
+});
+
+alert("Registration Successful");
+showLogin();
+}) .catch((err) => { alert(err.message); console.log(err); });
+};
+
+/* TOGGLE */
+window.showRegister = () => {
+document.getElementById("loginPage").classList.add("hidden");
+document.getElementById("registerPage").classList.remove("hidden");
+};
+
+window.showLogin = () => {
+document.getElementById("registerPage").classList.add("hidden");
+document.getElementById("loginPage").classList.remove("hidden");
+};
+
+/* SLIDER */
+let index = 0;
+const slides = document.getElementById("slides");
+const total = slides.children.length;
+
+function showSlide(i){
+index = (i + total) % total;
+slides.style.transform = `translateX(${-index * 100}%)`;
+}
+
+window.nextSlide = () => showSlide(index + 1);
+window.prevSlide = () => showSlide(index - 1);
+
+setInterval(()=> {
+nextSlide();
+}, 3000);
+
+</script>
+
+
+
+</body>
+</html>

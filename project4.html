@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:linear-gradient(135deg,#000428,#004e92);
+color:white;
+min-height:100vh;
+padding:20px;
+}
+
+header{
+text-align:center;
+padding:20px;
+}
+
+header h1{
+font-size:38px;
+color:#00ffcc;
+text-shadow:0 0 20px #00ffcc;
+}
+
+.nav{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+margin:20px 0;
+}
+
+button{
+padding:12px 22px;
+border:none;
+border-radius:12px;
+background:linear-gradient(45deg,#ff0080,#7928ca);
+color:white;
+cursor:pointer;
+font-size:16px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.08);
+background:linear-gradient(45deg,#00ffcc,#0066ff);
+}
+
+.profile-card{
+max-width:900px;
+margin:auto;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(12px);
+border-radius:20px;
+padding:25px;
+box-shadow:0 0 20px rgba(0,255,255,.4);
+}
+
+.top{
+display:flex;
+align-items:center;
+gap:25px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.top img{
+width:180px;
+height:180px;
+border-radius:20px;
+object-fit:cover;
+border:4px solid #00ffcc;
+box-shadow:0 0 20px #00ffcc;
+}
+
+.info{
+font-size:20px;
+line-height:2;
+}
+
+.table-container{
+overflow-x:auto;
+margin-top:30px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th{
+background:#00ffcc;
+color:black;
+padding:15px;
+}
+
+td{
+padding:15px;
+text-align:center;
+border:1px solid rgba(255,255,255,.2);
+}
+
+tr:hover{
+background:rgba(0,255,255,.1);
+}
+
+.footer{
+text-align:center;
+margin-top:30px;
+font-size:18px;
+color:#00ffcc;
+}
+
+@media(max-width:768px){
+header h1{
+font-size:28px;
+}
+.top img{
+width:130px;
+height:130px;
+}
+.info{
+font-size:16px;
+}
+}
+</style>
+</head>
+<body>
+
+<header>
+<h1>WELCOME TO STUDENT PROFILE</h1>
+</header>
+
+<div class="nav">
+<button onclick="location.reload()">HOME</button>
+<button onclick="alert('Student Profile Website')">ABOUT</button>
+<button onclick="window.location.href='original.html'">LOGOUT</button>
+</div>
+
+<div class="profile-card">
+
+<div class="top">
+<img src="m.png" alt="Profile Photo">
+
+<div class="info">
+<p><strong>Name:</strong> Raju Kumar</p>
+<p><strong>Branch:</strong> CSE</p>
+<p><strong>Roll No:</strong> CS11</p>
+<p><strong>College:</strong> G.P Katihar</p>
+<p><strong>District:</strong> West Champaran</p>
+</div>
+</div>
+
+<div class="table-container">
+<table>
+<tr>
+  <th>Photo</th>
+<th>Semester</th>
+<th>Marks</th>
+<th>CGPA</th>
+<th>Result</th>
+</tr>
+
+<tr>
+  <td><img src="X.jpg" height="100" width="100"></td>
+<td>1st Semester</td>
+<td>763</td>
+<td>8.13</td>
+  <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+  <tr>
+    <td><img src="P.jpg" height="100" width="100"></td>
+    <td>2nd Semester</td>
+    <td>000</td>
+    <td>0.00</td>
+    <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+  </tr>
+   <tr>
+    <td><img src="P.jpg" height="100" width="100"></td>
+    <td>3rd Semester</td>
+    <td>000</td>
+    <td>0.00</td>
+    <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+   <tr>
+    <td><img src="P.jpg" height="100" width="100"></td>
+    <td>4th Semester</td>
+    <td>000</td>
+    <td>0.00</td>
+    <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+  
+</table>
+</div>
+
+</div><br>
+
+<div class="profile-card">
+
+<div class="top">
+<img src="m.png" alt="Profile Photo">
+
+<div class="info">
+<p><strong>Name:</strong> Raju Kumar</p>
+<p><strong>Trade:</strong> Fitter</p>
+<p><strong>Roll No:</strong> 12</p>
+<p><strong>College:</strong> Krishana Indistrial Trening Instutute(ITI)</p>
+<p><strong>District:</strong> West Champaran</p>
+</div>
+</div>
+  <div class="table-container">
+<table>
+<tr>
+  <th>Photo</th>
+<th>Year</th>
+<th>Marks</th>
+  <th>Presentage</th>
+<th>Result</th>
+</tr>
+   <tr>
+    <td><img src="P.jpg" height="100" width="100"></td>
+    <td>1st Year</td>
+    <td>576</td>
+    <td>96%</td>
+    <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+  <tr>
+    <td><img src="P.jpg" height="100" width="100"></td>
+    <td>2nd Year</td>
+    <td>574</td>
+    <td>95.5%</td>
+    <td><a  link href="11.jpg"><button>Download.</button></a></td>
+</tr>
+  
+  
+  
+  
+  
+
+
+
+
+
+</body>
+</html>

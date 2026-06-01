@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Raju</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#f4f6f9;
+}
+
+/* Section */
+.section{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:40px;
+}
+
+/* Card */
+.card{
+  background:white;
+  padding:30px;
+  max-width:500px;
+  border-radius:15px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+
+  opacity:0;
+  transform:translateY(60px);
+  transition:all 0.8s ease;
+}
+
+/* Show animation */
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* Title */
+h2{
+  color:#0d6efd;
+  margin-bottom:15px;
+}
+
+/* Text */
+p{
+  color:#555;
+  line-height:1.6;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="section">
+  <div class="card">
+
+    <h2>About Me</h2>
+
+    <p>
+      Hello! My name is Raju and I am a Web Developer and Web Designer.
+      I create modern and responsive websites using HTML, CSS, and JavaScript.
+    </p>
+
+    <p>
+      I am continuously improving my skills by learning new web technologies.
+      My goal is to become a professional full-stack web developer.
+    </p>
+
+  </div>
+</div>
+
+<script>
+function revealOnScroll(){
+  let card = document.querySelector(".card");
+  let position = card.getBoundingClientRect().top;
+  let screenHeight = window.innerHeight;
+
+  if(position < screenHeight - 100){
+    card.classList.add("show");
+  }
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
+</script>
+
+</body>
+</html>
