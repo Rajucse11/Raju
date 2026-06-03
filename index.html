@@ -39,15 +39,87 @@ font-size:22px;
 }
 
 /* HEADER */
-header{
-background:white;
-padding:25px;
-text-align:center;
+    .top-header{
+    background:linear-gradient(135deg,#ff6600,#ff8c00);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px 30px;
+    color:white;
+    box-shadow:0 3px 10px rgba(0,0,0,0.2);
 }
 
-header h1{
-font-size:50px;
-font-weight:bold;
+.logo-box img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    border:4px solid white;
+    object-fit:cover;
+}
+
+.header-info{
+    text-align:center;
+    flex:1;
+}
+
+.header-info h2{
+    margin:0;
+    font-size:32px;
+    font-weight:700;
+}
+
+.header-info p{
+    margin:8px 0;
+    font-size:20px;
+}
+
+.admission-badge{
+    display:inline-block;
+    background:#28a745;
+    color:white;
+    padding:8px 18px;
+    border-radius:30px;
+    font-weight:bold;
+}
+
+.social-icons{
+    display:flex;
+    gap:15px;
+}
+
+.social-icons a{
+    width:45px;
+    height:45px;
+    background:white;
+    color:#ff6600;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.social-icons a:hover{
+    transform:scale(1.1);
+}
+
+@media(max-width:768px){
+
+    .top-header{
+        flex-direction:column;
+        gap:15px;
+        text-align:center;
+    }
+
+    .header-info h2{
+        font-size:24px;
+    }
+
+    .header-info p{
+        font-size:18px;
+    }
 }
 
 .nav-btn{
@@ -398,16 +470,25 @@ margin-bottom:10px;
 </head>
 <body>
 
-<div class="top-bar">
-    <img src="X.jpg" alt="Website Logo" class="logo">
-<div><i class="fa-solid fa-phone"></i> +91 9939171583 | Admission Open</div>
-<div class="social-icons">
-<a href="https://whatsapp.com/channel/0029VbBgQJMKgsNuvHP1EV1v"><i class="fab fa-whatsapp"></i></a>
-<a href="https://www.instagram.com/raju_kumar_nke?igsh=ajkxaWRodTBlenhx"><i class="fab fa-instagram"></i></a>
-<a href="https://www.facebook.com/share/1H5t2xB8r5/"><i class="fab fa-facebook-f"></i></a>
+<div class="top-header">
+
+    <div class="logo-box">
+        <img src="X.jpg" alt="Profile">
+    </div>
+
+    <div class="header-info">
+        <h2>EduPoint India</h2>
+        <p>📞 +91 9939171583</p>
+        <span class="admission-badge">Register Now</span>
+    </div>
+
+    <div class="social-icons">
+        <a href="https://whatsapp.com/channel/0029VbBgQJMKgsNuvHP1EV1v"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/raju_kumar_nke?igsh=ajkxaWRodTBlenhx"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/share/1KrAUf4uwc/"><i class="fab fa-facebook-f"></i></a>
+    </div>
+
 </div>
-</div>
-   
 
 <header>
 <h1>RAJU COMPUTER EDUCATION</h1>
