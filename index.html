@@ -323,7 +323,75 @@ margin-bottom:10px;
     font-size:18px;
     line-height:45px;
 }
+/*latest*/
+      .box-container{
+    display:flex;
+    gap:15px;
+    margin:20px 0;
+}
 
+.info-box{
+    flex:1;
+    border:1px solid #d0d0d0;
+    background:#fff;
+}
+
+.box-title{
+    background:#007bff;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.box-content{
+    height:400px;
+    overflow-y:auto;
+}
+
+.box-content a{
+    display:block;
+    padding:12px;
+    text-decoration:none;
+    color:#000;
+    font-weight:600;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.box-content a:hover{
+    background:#f5f5f5;
+}
+
+.view-more{
+    display:block;
+    background:#007bff;
+    color:#fff;
+    text-align:center;
+    padding:12px;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* Mobile View */
+@media(max-width:768px){
+
+    .box-container{
+        flex-direction:column;
+    }
+
+    .info-box{
+        width:100%;
+    }
+
+    .box-content{
+        height:300px;
+    }
+
+    .box-title{
+        font-size:20px;
+    }
+}
 
     
 </style>  
@@ -512,6 +580,66 @@ margin-bottom:10px;
 </div>
 
 </div>
+
+<div class="box-container">
+
+    <!-- Latest Update -->
+    <div class="info-box">
+        <div class="box-title">Latest Update</div>
+
+        <div class="box-content">
+            <a href="#">Bihar Board Result 2026 Released</a>
+            <a href="#">CTET Form 2026 Apply Online</a>
+            <a href="#">SSC GD New Notification</a>
+            <a href="#">Railway NTPC Update</a>
+            <a href="#">Bihar Scholarship 2026</a>
+            <a href="#">JEE Main Update</a>
+            <a href="#">NEET 2026 Notice</a>
+            <a href="#">UPSC New Vacancy</a>
+            <a href="#">More Updates...</a>
+        </div>
+
+        <a href="#" class="view-more">View More...</a>
+    </div>
+
+    <!-- Results -->
+    <div class="info-box">
+        <div class="box-title">Results</div>
+
+        <div class="box-content">
+            <a href="#">BSEB 10th Result</a>
+            <a href="#">BSEB 12th Result</a>
+            <a href="#">SSC CGL Result</a>
+            <a href="#">Railway Result</a>
+            <a href="#">CTET Result</a>
+            <a href="#">UPSC Result</a>
+            <a href="#">NDA Result</a>
+            <a href="#">More Results...</a>
+        </div>
+
+        <a href="#" class="view-more">View More...</a>
+    </div>
+
+    <!-- Online Form -->
+    <div class="info-box">
+        <div class="box-title">Online Form</div>
+
+        <div class="box-content">
+            <a href="#">SSC CGL Online Form</a>
+            <a href="#">UPSC Online Form</a>
+            <a href="#">Railway Group D Form</a>
+            <a href="#">Navy Recruitment Form</a>
+            <a href="#">Police Vacancy Form</a>
+            <a href="#">Bank Vacancy Form</a>
+            <a href="#">Bihar Vacancy Form</a>
+            <a href="#">More Forms...</a>
+        </div>
+
+        <a href="#" class="view-more">View More...</a>
+    </div>
+
+</div>
+    
 
 <footer class="footer">
 <div class="footer-container">
