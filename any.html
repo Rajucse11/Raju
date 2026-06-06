@@ -3,248 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raju AI Assistant - Premium</title>
-
+<title>Raju AI - Ultimate Assistant</title>
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
     background: radial-gradient(circle, #1a0033 0%, #050010 100%);
     color: white;
     text-align: center;
-    font-family: 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    overflow-x: hidden;
 }
-
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-    color: #ff007f;
-    text-shadow: 0 0 15px rgba(255, 0, 127, 0.6);
-}
-
+h1 { color: #ff007f; text-shadow: 0 0 15px rgba(255, 0, 127, 0.6); margin-bottom: 5px; }
 .avatar-container {
     position: relative;
-    width: 260px;
-    height: 260px;
+    width: 200px; height: 200px;
     margin: 20px auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
 }
-
 .pulse-ring {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid #ff007f;
-    animation: wave 2s infinite ease-out;
-    opacity: 0;
+    position: absolute; width: 100%; height: 100%;
+    border-radius: 50%; border: 3px solid #ff007f;
+    animation: wave 2s infinite ease-out; opacity: 0;
 }
-
-.pulse-ring:nth-child(2) {
-    animation-delay: 0.6s;
-}
-
 #avatar {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    object-fit: cover;
-    z-index: 2;
-    border: 4px solid #fff;
+    width: 170px; height: 170px; border-radius: 50%;
+    object-fit: cover; z-index: 2; border: 4px solid #fff;
     box-shadow: 0 0 30px rgba(255, 0, 127, 0.8);
-    transition: all 0.3s ease;
 }
-
-.listening #avatar {
-    border-color: #00e5ff;
-    box-shadow: 0 0 40px rgba(0, 229, 255, 1);
-    transform: scale(1.05);
-}
-
-@keyframes wave {
-    0% { transform: scale(0.8); opacity: 0.8; }
-    100% { transform: scale(1.3); opacity: 0; border-color: #00e5ff; }
-}
-
+.listening .pulse-ring { animation: wave 1s infinite ease-out; border-color: #00e5ff; }
+@keyframes wave { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; } }
 button {
-    padding: 15px 40px;
-    font-size: 1.2rem;
-    margin-top: 30px;
-    border: none;
-    border-radius: 50px;
-    cursor: pointer;
-    background: linear-gradient(45deg, #ff007f, #7f00ff);
-    color: white;
-    font-weight: bold;
-    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    padding: 15px 40px; font-size: 1.2rem; margin-top: 20px;
+    border: none; border-radius: 50px; cursor: pointer;
+    background: linear-gradient(45deg, #ff007f, #7f00ff); color: white;
+    font-weight: bold; box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4);
 }
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 0, 127, 0.7);
-}
-
-#output {
-    margin-top: 25px;
-    font-size: 1.3rem;
-    color: #e0e0e0;
-    min-height: 40px;
-    font-weight: 300;
-}
-
-.status-text {
-    color: #00e5ff !important;
-    font-weight: bold;
-}
+#output { margin-top: 25px; font-size: 1.2rem; color: #e0e0e0; max-width: 80%; }
+.status { color: #00e5ff; font-weight: bold; }
 </style>
 </head>
-
 <body>
 
-<h1>RAJU AI PRO</h1>
+<h1>RAJU AI ULTIMATE</h1>
+<p style="color:#aaa;">Voice Activated Super Assistant</p>
 
 <div class="avatar-container" id="visualizer">
     <div class="pulse-ring"></div>
-    <div class="pulse-ring"></div>
-    <img id="avatar" 
-         src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500&auto=format&fit=crop&q=80" 
-         alt="Beautiful AI Assistant in Saree">
+    <img id="avatar" src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500" alt="AI Assistant">
 </div>
 
-<button onclick="startListening()">
-    <span style="font-size: 24px;">🎤</span> Bolo Raju Se
-</button>
-
+<button onclick="startListening()">🎤 Bolo Raju Se</button>
 <div id="output">Command ka intezar ba...</div>
 
 <script>
-function speak(text){
+// !!! APNI CHATGPT API KEY YAHAN DALO !!!
+const OPENAI_API_KEY = "YOUR_OPENAI_API_KEY_HERE"; 
+
+function speak(text, callback = null) {
     let speech = new SpeechSynthesisUtterance(text);
     let voices = window.speechSynthesis.getVoices();
-    let selectedVoice = voices.find(voice => voice.lang === 'hi-IN' && voice.name.includes('Google'));
-    
-    if(!selectedVoice) {
-        selectedVoice = voices.find(voice => voice.lang === 'hi-IN');
-    }
-    
-    if(selectedVoice) {
-        speech.voice = selectedVoice;
-    }
-
+    speech.voice = voices.find(v => v.lang === 'hi-IN' && v.name.includes('Google')) || voices.find(v => v.lang === 'hi-IN') || voices[0];
     speech.lang = "hi-IN";
-    speech.rate = 1.0; 
-    speech.pitch = 1.1; // Smooth ladki ki aawaz ke liye
+    speech.rate = 1.0;
+    speech.pitch = 1.1;
 
+    speech.onend = function() { if (callback) callback(); };
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(speech);
 }
 
-if (typeof speechSynthesis !== 'undefined' && speechSynthesis.onvoiceschanged !== undefined) {
-    speechSynthesis.onvoiceschanged = () => {}; 
+async function askChatGPT(promptText) {
+    if(OPENAI_API_KEY === "YOUR_OPENAI_API_KEY_HERE") {
+        return "Achha ji, pehle code me apni ChatGPT API Key toh daliye!";
+    }
+    document.getElementById("output").innerHTML = "<span class='status'>Raju soch rahi hai... 🤔</span>";
+    try {
+        let response = await fetch("https://api.openai.com/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${OPENAI_API_KEY}`
+            },
+            body: JSON.stringify({
+                model: "gpt-4o-mini", // Sasta aur tez model
+                messages: [
+                    {role: "system", content: "Aap ek friendly Indian female AI assistant hain jo thoda sanskari aur modern tarike se 'Achha ji' bol kar jawab deti hai. Jawab hamesha chhota aur crisp rakhein."},
+                    {role: "user", content: promptText}
+                ]
+            })
+        });
+        let data = await response.json();
+        return data.choices[0].message.content;
+    } catch (e) {
+        return "Achha ji, lagta hai internet me kuch dikkat hai ya API key galat hai.";
+    }
 }
 
-function startListening(){
-    if(!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)){
-        alert("Aapke browser me Voice Recognition support nahi hai.");
-        return;
-    }
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+function startListening() {
+    if(!('webkitSpeechRecognition' in window)) { alert("Voice support nahi hai."); return; }
+    
+    const recognition = new webkitSpeechRecognition();
     recognition.lang = "hi-IN";
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
+    
     const visualizer = document.getElementById("visualizer");
     const outputDiv = document.getElementById("output");
     
     visualizer.classList.add("listening");
-    outputDiv.innerHTML = "<span class='status-text'>Sun rahi hoon... boliye</span>";
-    
+    outputDiv.innerHTML = "<span class='status'>Sun rahi hoon... boliye</span>";
     recognition.start();
 
-    recognition.onresult = function(event){
+    recognition.onresult = async function(event) {
         visualizer.classList.remove("listening");
         let cmd = event.results[0][0].transcript.toLowerCase();
         outputDiv.innerHTML = "Tum bole: <b>" + cmd + "</b>";
 
-        // 1. YouTube Kholo
-        if(cmd.includes("youtube")){
-            speak("Achha ji, ab YouTube chalana hai? Abhi kholti hoon!");
-            setTimeout(() => { window.open("https://www.youtube.com", "_blank"); }, 2200);
+        // 1. NOTES BANANA 📝
+        if(cmd.includes("note") || cmd.includes("likho")) {
+            let noteText = cmd.replace("note", "").replace("likho", "").trim();
+            let oldNotes = localStorage.getItem("raju_notes") || "";
+            localStorage.setItem("raju_notes", oldNotes + "\n" + noteText);
+            speak("Achha ji, maine note likh liya hai: " + noteText);
         }
 
-        // 2. Google Kholo
-        else if(cmd.includes("google")){
-            speak("Achha ji, ab Google par kuch dekhna hai? Abhi kholti hoon!");
-            setTimeout(() => { window.open("https://www.google.com", "_blank"); }, 2200);
-        }
-
-        // 3. WhatsApp Kholo
-        else if(cmd.includes("whatsapp") || cmd.includes("व्हाट्सएप")){
-            speak("Achha ji, ab WhatsApp par chat karni hai? Abhi kholti hoon!");
-            setTimeout(() => { window.open("https://web.whatsapp.com", "_blank"); }, 2200);
-        }
-
-        // 4. Samay / Time
-        else if(cmd.includes("time") || cmd.includes("samay") || cmd.includes("baje")){
-            let t = new Date().toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit' });
-            speak("Achha ji, abhi ka time ho raha hai " + t + "!");
-        }
-
-        // 5. Phone Call Lagao (e.g., "call 9876543210")
-        else if(cmd.includes("call") || cmd.includes("phone") || cmd.includes("डायल")){
-            let phoneNumber = cmd.replace(/\D/g, ""); 
-            if(phoneNumber.length >= 10){
-                speak("Achha ji, abhi unhe phone lagati hoon, thoda rukiye!");
-                setTimeout(() => { window.location.href = "tel:" + phoneNumber; }, 2200);
+        // 2. CALCULATOR ➕
+        else if(cmd.includes("plus") || cmd.includes("minus") || cmd.includes("jodo") || cmd.includes("ghatao")) {
+            // Numbers nikalne ke liye basic logic
+            let numbers = cmd.match(/\d+/g);
+            if(numbers && numbers.length >= 2){
+                let n1 = parseInt(numbers[0]);
+                let n2 = parseInt(numbers[1]);
+                let res = cmd.includes("jodo") || cmd.includes("plus") ? n1 + n2 : n1 - n2;
+                speak("Achha ji, iska hisab hoga " + res);
             } else {
-                speak("Achha ji, par number thoda saaf-saaf bataiye na, main samajh nahi payi.");
+                speak("Achha ji, numbers thoda saaf boliye na.");
             }
         }
 
-        // 6. Search Feature (e.g., "search pawan singh ke gane")
-        else if(cmd.includes("search") || cmd.includes("khojo")){
-            let searchQuery = cmd.replace("search", "").replace("khojo", "").trim();
-            if(searchQuery){
-                speak("Achha ji, abhi internet par " + searchQuery + " ke baare me dhoondti hoon!");
-                setTimeout(() => { window.open("https://www.google.com/search?q=" + encodeURIComponent(searchQuery), "_blank"); }, 2200);
-            }
+        // 3. WEATHER 🌦️
+        else if(cmd.includes("weather") || cmd.includes("mausam")) {
+            speak("Achha ji, abhi mausam check karne ke liye main Google khol rahi hoon.", () => {
+                window.open("https://www.google.com/search?q=weather+today", "_blank");
+            });
         }
 
-        // Agar kuch samajh na aaye
+        // 4. EMAIL DRAFT 📧
+        else if(cmd.includes("email") || cmd.includes("mail")) {
+            speak("Achha ji, aapka Gmail open kar rahi hoon, mail draft karne ke liye.", () => {
+                window.open("https://mail.google.com/mail/?view=cm&fs=1", "_blank");
+            });
+        }
+
+        // 5. CHATGPT INTELLIGENCE (Kuch bhi poocho!) 🤖
         else {
-            speak("Achha ji, aapne kuch kaha par mujhe samajh nahi aaya, ek baar phir se bolie na!");
+            let gptReply = await askChatGPT(cmd);
+            outputDiv.innerHTML = "Raju: " + gptReply;
+            speak(gptReply);
         }
     };
-
-    recognition.onerror = function(event){
-        visualizer.classList.remove("listening");
-        outputDiv.innerHTML = "Error: " + event.error;
-    };
-
-    recognition.onend = function(){
-        visualizer.classList.remove("listening");
-    };
+    
+    recognition.onerror = () => visualizer.classList.remove("listening");
+    recognition.onend = () => visualizer.classList.remove("listening");
 }
 </script>
-
 </body>
 </html>
