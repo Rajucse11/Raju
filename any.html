@@ -2,63 +2,167 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hacker Animation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Raju AI Assistant</title>
+
 <style>
 body{
-    margin:0;
-    overflow:hidden;
-    background:black;
+    background:#000;
+    color:white;
+    text-align:center;
+    font-family:Arial,sans-serif;
+    padding:20px;
 }
-canvas{
-    display:block;
+
+#avatar{
+    width:220px;
+    height:220px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-top:20px;
+    animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.05);}
+    100%{transform:scale(1);}
+}
+
+button{
+    padding:15px 30px;
+    font-size:20px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+#output{
+    margin-top:20px;
+    font-size:22px;
 }
 </style>
 </head>
+
 <body>
 
-<canvas id="matrix"></canvas>
+<h1>RAJU AI</h1>
+
+<img id="avatar"
+src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500"
+alt="AI Avatar">
+
+<br>
+
+<button onclick="startListening()">🎤 Bolo</button>
+
+<div id="output">Command ka intezar ba...</div>
 
 <script>
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function speak(text){
+    let speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "hi-IN";
+    speech.rate = 1;
+    speech.pitch = 1;
 
-const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*";
-const fontSize = 16;
-const columns = canvas.width / fontSize;
-
-const drops = [];
-for(let i = 0; i < columns; i++){
-    drops[i] = 1;
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(speech);
 }
 
-function draw(){
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
-    ctx.fillRect(0,0,canvas.width,canvas.height);
+function startListening(){
 
-    ctx.fillStyle = "#00ff00";
-    ctx.font = fontSize + "px monospace";
+    if(
+        !('SpeechRecognition' in window) &&
+        !('webkitSpeechRecognition' in window)
+    ){
+        alert("Voice Recognition support nahi hai.");
+        return;
+    }
 
-    for(let i = 0; i < drops.length; i++){
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    const recognition = new (
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition
+    )();
 
-        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
-            drops[i] = 0;
+    recognition.lang = "hi-IN";
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    document.getElementById("output").innerHTML =
+    "Sunat bani...";
+
+    recognition.start();
+
+    recognition.onresult = function(event){
+
+        let cmd =
+        event.results[0][0].transcript.toLowerCase();
+
+        document.getElementById("output").innerHTML =
+        "Tum bole: " + cmd;
+
+        if(cmd.includes("youtube")){
+
+            speak("YouTube kholat bani");
+
+            window.open(
+            "https://www.youtube.com",
+            "_blank");
+
         }
 
-        drops[i]++;
-    }
+        else if(cmd.includes("google")){
+
+            speak("Google kholat bani");
+
+            window.open(
+            "https://www.google.com",
+            "_blank");
+
+        }
+
+        else if(
+            cmd.includes("time") ||
+            cmd.includes("samay") ||
+            cmd.includes("kitna baje")
+        ){
+
+            let t =
+            new Date().toLocaleTimeString(
+            "en-IN");
+
+            document.getElementById("output")
+            .innerHTML =
+            "Samay: " + t;
+
+            speak("Abhi samay ba " + t);
+
+        }
+
+        else{
+
+            speak("Ham sun liye bani");
+
+        }
+    };
+
+    recognition.onerror = function(event){
+
+        document.getElementById("output")
+        .innerHTML =
+        "Error: " + event.error;
+
+        alert("Error: " + event.error);
+    };
+
+    recognition.onend = function(){
+
+        console.log("Recognition band ho gail");
+
+    };
 }
-
-setInterval(draw, 33);
-
-window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
 </script>
 
 </body>
