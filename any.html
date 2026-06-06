@@ -2,77 +2,62 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hand Gesture Control</title>
-
-<script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"></script>
-
+<title>Hacker Animation</title>
 <style>
 body{
-    text-align:center;
-    font-family:Arial;
+    margin:0;
+    overflow:hidden;
+    background:black;
 }
-
-#video{
-    width:320px;
-    border:2px solid #000;
-}
-
-#box{
-    width:100px;
-    height:100px;
-    background:red;
-    position:relative;
-    margin:20px auto;
-    transition:0.3s;
+canvas{
+    display:block;
 }
 </style>
 </head>
 <body>
 
-<h2>Hand Gesture Animation Control</h2>
-
-<video id="video" autoplay></video>
-
-<div id="box"></div>
+<canvas id="matrix"></canvas>
 
 <script>
-const video = document.getElementById("video");
-const box = document.getElementById("box");
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
 
-const modelParams = {
-    flipHorizontal: true,
-    maxNumBoxes: 1,
-    scoreThreshold: 0.6
-};
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-handTrack.startVideo(video).then(status => {
-    if(status){
-        handTrack.load(modelParams).then(model => {
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*";
+const fontSize = 16;
+const columns = canvas.width / fontSize;
 
-            function runDetection(){
-                model.detect(video).then(predictions => {
+const drops = [];
+for(let i = 0; i < columns; i++){
+    drops[i] = 1;
+}
 
-                    if(predictions.length > 0){
-                        let x = predictions[0].bbox[0];
+function draw(){
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
 
-                        if(x < 100){
-                            box.style.transform = "translateX(-100px)";
-                        }
-                        else if(x > 200){
-                            box.style.transform = "translateX(100px)";
-                        }
-                        else{
-                            box.style.transform = "translateX(0)";
-                        }
-                    }
+    ctx.fillStyle = "#00ff00";
+    ctx.font = fontSize + "px monospace";
 
-                    requestAnimationFrame(runDetection);
-                });
-            }
+    for(let i = 0; i < drops.length; i++){
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
 
-            runDetection();
-        });
+        if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+            drops[i] = 0;
+        }
+
+        drops[i]++;
     }
+}
+
+setInterval(draw, 33);
+
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 </script>
 
