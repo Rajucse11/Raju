@@ -3,165 +3,263 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Raju AI Assistant - Fix</title>
+<title>RAJU ULTRA JARVIS AI</title>
 
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-    background: radial-gradient(circle, #1a0033 0%, #050010 100%);
-    color: white;
-    text-align: center;
-    font-family: 'Segoe UI', Roboto, sans-serif;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:Arial;
+    text-align:center;
 }
-h1 { font-size: 2.5rem; margin-bottom: 10px; color: #ff007f; text-shadow: 0 0 15px rgba(255, 0, 127, 0.6); }
-.avatar-container { position: relative; width: 260px; height: 260px; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
-.pulse-ring { position: absolute; width: 100%; height: 100%; border-radius: 50%; border: 3px solid #ff007f; animation: wave 2s infinite ease-out; opacity: 0; }
-.pulse-ring:nth-child(2) { animation-delay: 0.6s; }
-#avatar { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; z-index: 2; border: 4px solid #fff; box-shadow: 0 0 30px rgba(255, 0, 127, 0.8); transition: all 0.3s ease; }
-.listening #avatar { border-color: #00e5ff; box-shadow: 0 0 40px rgba(0, 229, 255, 1); transform: scale(1.05); }
-@keyframes wave { 0% { transform: scale(0.8); opacity: 0.8; } 100% { transform: scale(1.3); opacity: 0; border-color: #00e5ff; } }
-button { padding: 15px 40px; font-size: 1.2rem; margin-top: 30px; border: none; border-radius: 50px; cursor: pointer; background: linear-gradient(45deg, #ff007f, #7f00ff); color: white; font-weight: bold; box-shadow: 0 5px 20px rgba(255, 0, 127, 0.4); display: flex; align-items: center; gap: 10px; }
-#output { margin-top: 25px; font-size: 1.3rem; color: #e0e0e0; min-height: 40px; }
-.status-text { color: #00e5ff !important; font-weight: bold; }
+
+h1{
+    color:#00f0ff;
+    text-shadow:0 0 20px #00f0ff;
+}
+
+#scene{
+    width:100%;
+    height:300px;
+}
+
+#text{
+    margin:10px;
+    color:#00ff99;
+    font-size:18px;
+}
+
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:25px;
+    margin:10px;
+    background:linear-gradient(45deg,#00f0ff,#0066ff);
+    color:white;
+}
 </style>
 </head>
 
 <body>
 
-<h1>RAJU AI PRO</h1>
+<h1>🤖 RAJU ULTRA JARVIS AI</h1>
 
-<div class="avatar-container" id="visualizer">
-    <div class="pulse-ring"></div>
-    <div class="pulse-ring"></div>
-    <img id="avatar" src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=500" alt="AI Assistant">
-</div>
+<div id="scene"></div>
 
-<button onclick="startListening()">🎤 Bolo Raju Se</button>
-<div id="output">Command ka intezar ba...</div>
+<button onclick="startAI()">🎤 Start AI</button>
+
+<p id="text">Say: Hey Raju</p>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.min.js"></script>
 
 <script>
-// Is function me action ko callback banaya hai taaki bolne ke BAAD hi website khule
-function speak(text, callback = null){
-    let speech = new SpeechSynthesisUtterance(text);
-    let voices = window.speechSynthesis.getVoices();
-    
-    // Smooth voice selection
-    let selectedVoice = voices.find(voice => voice.lang === 'hi-IN' && voice.name.includes('Google'));
-    if(!selectedVoice) selectedVoice = voices.find(voice => voice.lang === 'hi-IN');
-    if(selectedVoice) speech.voice = selectedVoice;
 
-    speech.lang = "hi-IN";
-    speech.rate = 1.0; 
-    speech.pitch = 1.1;
+// ================= 3D FACE =================
+let scene=new THREE.Scene();
+let camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,0.1,1000);
+let renderer=new THREE.WebGLRenderer();
+renderer.setSize(window.innerWidth,300);
+document.getElementById("scene").appendChild(renderer.domElement);
 
-    speech.onend = function() {
-        if (callback) {
-            callback(); // Jab bolna khatam hoga, tabhi website khulegi
-        }
-    };
+let geo=new THREE.SphereGeometry(2,32,32);
+let mat=new THREE.MeshBasicMaterial({color:0x00f0ff,wireframe:true});
+let sphere=new THREE.Mesh(geo,mat);
 
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(speech);
+scene.add(sphere);
+camera.position.z=5;
+
+function animate(){
+    requestAnimationFrame(animate);
+    sphere.rotation.y+=0.01;
+    sphere.rotation.x+=0.005;
+    renderer.render(scene,camera);
+}
+animate();
+
+// ================= MEMORY =================
+let memory = JSON.parse(localStorage.getItem("raju_memory")||"{}");
+
+function saveMemory(k,v){
+    memory[k]=v;
+    localStorage.setItem("raju_memory",JSON.stringify(memory));
 }
 
-function startListening(){
-    if(!('SpeechRecognition' in window) && !('webkitSpeechRecognition' in window)){
-        alert("Aapke browser me Voice Recognition support nahi hai. Chrome use karein.");
-        return;
+// ================= VOICE FIX =================
+function speak(text,cb){
+    let msg=new SpeechSynthesisUtterance(text);
+
+    function load(){
+        let v=speechSynthesis.getVoices().find(x=>x.lang.includes("hi"))||speechSynthesis.getVoices()[0];
+        if(v) msg.voice=v;
+
+        msg.lang="hi-IN";
+        msg.rate=0.9;
+        msg.pitch=1;
+
+        msg.onend=()=>{if(cb)cb();};
+
+        speechSynthesis.cancel();
+        speechSynthesis.speak(msg);
     }
 
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = "hi-IN"; // Hindi aur mix catch karne ke liye
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    const visualizer = document.getElementById("visualizer");
-    const outputDiv = document.getElementById("output");
-    
-    visualizer.classList.add("listening");
-    outputDiv.innerHTML = "<span class='status-text'>Sun rahi hoon... boliye</span>";
-    
-    recognition.start();
-
-    recognition.onresult = function(event){
-        visualizer.classList.remove("listening");
-        let cmd = event.results[0][0].transcript.toLowerCase().trim();
-        outputDiv.innerHTML = "Tum bole: <b>" + cmd + "</b>";
-
-        // --- SMART HINDI/ENGLISH MATCHING ---
-
-        // 1. YouTube (English word OR Hindi Script match)
-        if(cmd.includes("youtube") || cmd.includes("yutub") || cmd.includes("यूट्यूब") || cmd.includes("यूट्यूब")){
-            speak("Achha ji, ab YouTube chalana hai? Abhi kholti hoon!", function() {
-                window.open("https://www.youtube.com", "_blank");
-            });
-        }
-
-        // 2. Google
-        else if(cmd.includes("google") || cmd.includes("गूगल") || cmd.includes("gugalth")){
-            speak("Achha ji, ab Google par kuch dekhna hai? Abhi kholti hoon!", function() {
-                window.open("https://www.google.com", "_blank");
-            });
-        }
-
-        // 3. WhatsApp
-        else if(cmd.includes("whatsapp") || cmd.includes("व्हाट्सएप") || cmd.includes("व्हाट्सऐप")){
-            speak("Achha ji, ab WhatsApp par chat karni hai? Abhi kholti hoon!", function() {
-                window.open("https://web.whatsapp.com", "_blank");
-            });
-        }
-
-        // 4. Time/Samay
-        else if(cmd.includes("time") || cmd.includes("samay") || cmd.includes("baje") || cmd.includes("समय")){
-            let t = new Date().toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit' });
-            speak("Achha ji, abhi ka time ho raha hai " + t + "!");
-        }
-
-        // 5. Phone Call (e.g., "call 9876543210")
-        else if(cmd.includes("call") || cmd.includes("phone") || cmd.includes("डायल") || cmd.includes("फ़ोन")){
-            let phoneNumber = cmd.replace(/\D/g, ""); 
-            if(phoneNumber.length >= 10){
-                speak("Achha ji, abhi unhe phone lagati hoon, thoda rukiye!", function() {
-                    window.location.href = "tel:" + phoneNumber;
-                });
-            } else {
-                speak("Achha ji, par number thoda saaf-saaf bataiye na, main samajh nahi payi.");
-            }
-        }
-
-        // 6. Search Feature (e.g., "khojo gana")
-        else if(cmd.includes("search") || cmd.includes("khojo") || cmd.includes("ढूंढो")){
-            let searchQuery = cmd.replace("search", "").replace("khojo", "").replace("ढूंढो", "").trim();
-            if(searchQuery){
-                speak("Achha ji, abhi internet par " + searchQuery + " ke baare me dhoondti hoon!", function() {
-                    window.open("https://www.google.com/search?q=" + encodeURIComponent(searchQuery), "_blank");
-                });
-            } else {
-                speak("Achha ji, kya खोजना hai woh toh bataiye!");
-            }
-        }
-
-        // Agar kuch bhi match nahi hua
-        else {
-            speak("Achha ji, aapne bola " + cmd + ", par mujhe iska command samajh nahi aaya, ek baar phir se bolie na!");
-        }
-    };
-
-    recognition.onerror = function(event){
-        visualizer.classList.remove("listening");
-        outputDiv.innerHTML = "Error: " + event.error;
-    };
-
-    recognition.onend = function(){
-        visualizer.classList.remove("listening");
-    };
+    if(speechSynthesis.getVoices().length===0){
+        speechSynthesis.onvoiceschanged=load;
+    }else load();
 }
+
+// ================= FLASHLIGHT =================
+async function flash(){
+    try{
+        let stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+        let track=stream.getVideoTracks()[0];
+        if(track.applyConstraints){
+            await track.applyConstraints({advanced:[{torch:true}]});
+            speak("Flashlight ON");
+        }
+    }catch{
+        speak("Flashlight not supported");
+    }
+}
+
+// ================= APP OPEN =================
+function openApp(name){
+    let apps={
+        whatsapp:"com.whatsapp",
+        youtube:"com.google.android.youtube",
+        instagram:"com.instagram.android",
+        phone:"com.android.dialer"
+    };
+
+    if(apps[name]){
+        window.location.href="intent://#Intent;package="+apps[name]+";end;";
+    }else{
+        speak("App not found");
+    }
+}
+
+// ================= WHATSAPP =================
+function whatsapp(num,msg){
+    window.open("https://wa.me/"+num+"?text="+encodeURIComponent(msg));
+}
+
+// ================= CHATGPT BRAIN =================
+let chatHistory=[];
+
+async function aiBrain(text){
+
+chatHistory.push({role:"user",content:text});
+
+if(chatHistory.length>8) chatHistory.shift();
+
+let res=await fetch("https://api.openai.com/v1/chat/completions",{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json",
+        "Authorization":"Bearer YOUR_API_KEY"
+    },
+    body:JSON.stringify({
+        model:"gpt-4o-mini",
+        messages:[
+            {role:"system",content:"You are RAJU JARVIS AI. Speak Hindi-English mix. Be short and smart."},
+            ...chatHistory
+        ]
+    })
+});
+
+let data=await res.json();
+let reply=data.choices[0].message.content;
+
+chatHistory.push({role:"assistant",content:reply});
+
+return reply;
+}
+
+// ================= SMART ENGINE =================
+async function run(cmd){
+
+document.getElementById("text").innerText=cmd;
+
+// GOOGLE
+if(cmd.includes("google")){
+    speak("Opening Google",()=>open("https://google.com"));
+}
+
+// YOUTUBE
+else if(cmd.includes("youtube")){
+    speak("Opening YouTube",()=>open("https://youtube.com"));
+}
+
+// CALL
+else if(cmd.includes("call")){
+    let num=cmd.replace(/\D/g,"");
+    if(num.length>=10){
+        speak("Calling",()=>location.href="tel:"+num);
+    }else speak("Number unclear");
+}
+
+// CALCULATE
+else if(cmd.includes("calculate")){
+    try{
+        let r=eval(cmd.replace("calculate",""));
+        speak("Result "+r);
+    }catch{
+        speak("Error");
+    }
+}
+
+// FLASH
+else if(cmd.includes("flash")||cmd.includes("light")){
+    flash();
+}
+
+// WHATSAPP
+else if(cmd.includes("whatsapp")){
+    whatsapp("91XXXXXXXXXX","Hello from Jarvis");
+}
+
+// MEMORY
+else if(cmd.includes("remember")){
+    saveMemory("last",cmd);
+    speak("Saved");
+}
+
+// 🤖 AI BRAIN MODE
+else{
+    let reply=await aiBrain(cmd);
+    speak(reply);
+}
+
+}
+
+// ================= VOICE =================
+function startAI(){
+
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let rec=new SR();
+
+rec.lang="hi-IN";
+rec.continuous=true;
+
+speak("RAJU ULTRA AI activated");
+
+rec.onresult=function(e){
+
+let cmd=e.results[e.results.length-1][0].transcript.toLowerCase();
+
+document.getElementById("text").innerText=cmd;
+
+if(cmd.includes("hey raju")){
+    speak("Yes boss");
+}else{
+    run(cmd);
+}
+
+};
+
+rec.start();
+}
+
 </script>
 
 </body>
